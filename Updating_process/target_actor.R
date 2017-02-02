@@ -7,7 +7,16 @@ target_actor<-function(i,actors){
 	vulnerability<-rep(0,N)
 	
 	for(k in 1:N){
-	vulnerability[k]<-(forming_alliance(i,k,actors)$wealth1-forming_alliance(i,k,actors)$wealth2)/forming_alliance(i,k,actors)$wealth1
+		
+	######
+		alliance_i<-forming_alliance(i,k,actors)$alliance[forming_alliance(i,k,actors)$alliance[,'allied']==i,]
+	 total_weath_i<-forming_alliance(i,k,actors)$wealth1
+alliance_j<-forming_alliance(i,k,actors)$alliance[forming_alliance(i,k,actors)$alliance[,'allied']==k,]
+	total_weath_j<-forming_alliance(i,k,actors)$wealth2
+	
+	vulnerability[k]<-(total_weath_i-total_weath_j)/total_weath_i
+	######	
+#	vulnerability[k]<-(forming_alliance(i,k,actors)$wealth1-forming_alliance(i,k,actors)$wealth2)/forming_alliance(i,k,actors)$wealth1
 	}
 	# Is it a target?
 	

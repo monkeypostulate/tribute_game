@@ -4,7 +4,7 @@
 #
 # #####################################################
 
-update_process<-function(i,j, actors){
+update_process<-function(i,j, actors, lost){
 	
 	
 # #####################################################
@@ -20,7 +20,7 @@ update_process<-function(i,j, actors){
 alliance_j<-forming_alliance(i,j,actors)$alliance[forming_alliance(i,j,actors)$alliance[,'allied']==j,]
 	total_weath_j<-forming_alliance(i,j,actors)$wealth2
 	
-fight= .20*total_weath_i*(actors[[j]]$wealth/total_weath_j)>250
+fight= lost*total_weath_i*(actors[[j]]$wealth/total_weath_j)>250
 	
 	# Decision not to fight
 	if(fight){ # There is no fight
@@ -45,22 +45,22 @@ fight= .20*total_weath_i*(actors[[j]]$wealth/total_weath_j)>250
 # Seeing that death, a necessary end, 
 # Will come when it will come
 # #####################################################	 
-	else{
+	if(!fight){
 		####################
 		# Alliances:
 		####################
 
 
-# Cost and commitment update: Alliance i:
+# Cost update: Alliance i:
  for(k in alliance_i[,'id'])	{
   actors[[k]]$wealth<-max(alliance_i[alliance_i[,'id']==k,'wealth']-
-	(alliance_i[alliance_i[,'id']==k,'wealth']/total_weath_i)* total_weath_j*.25,0)
+	(alliance_i[alliance_i[,'id']==k,'wealth']/total_weath_i)* total_weath_j*lost,0)
 	}
 	
 # Cost and commitment update: Alliance j:
  for(k in alliance_j[,'id'])	{
-  actors[[k]]$wealth<-max(alliance_j[alliance_i[,'id']==k,'wealth']*
-	(alliance_j[alliance_i[,'id']==k,'wealth']/total_weath_i)* total_weath_i*.25,0)
+  actors[[k]]$wealth<-max(alliance_j[alliance_j[,'id']==k,'wealth']-
+	(alliance_j[alliance_j[,'id']==k,'wealth']/total_weath_j)* total_weath_i*lost,0)
 	}	
 
 	
@@ -99,6 +99,9 @@ fight= .20*total_weath_i*(actors[[j]]$wealth/total_weath_j)>250
   }	
 	
 	}
+	 		 actors[[i]]$commitment[i]<-0
+	 		 actors[[j]]$commitment[j]<-0
+
 	# Output: Updated actors
 	return(actors)
 	

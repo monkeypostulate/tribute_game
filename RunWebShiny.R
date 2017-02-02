@@ -6,6 +6,13 @@
 #runApp('/Users/cuatrooctavos/Desktop/world_map')
 
 library(shiny)
-runApp('/Users/cuatrooctavos/Desktop/Introduction_1_2/Tribute_Model')
+folder<-getwd()
+runApp(folder)
+
+runUrl("https://github.com/rstudio/shiny_example/archive/master.tar.gz")
 
 
+
+
+
+runGitHub("CLASS_ABM", "abelgabel")  

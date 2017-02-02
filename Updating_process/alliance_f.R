@@ -54,6 +54,21 @@ forming_alliance<-function(i,j,actors){
 	alliance_team<-data.frame(alliance_team)
 	names(alliance_team)<-c('id','allied','commitment','wealth')
 	
+
+	for(k in alliance_team[alliance_team[,'allied']==i,'id']){	
+		if(length(unique(alliance_team[k:i,'allied']))!=1){
+			alliance_team[k,'allied']<-0
+		}
+	}	
+		
+	for(k in alliance_team[alliance_team[,'allied']==j,'id']){	
+		if(length(unique(alliance_team[k:j,'allied']))!=1){
+			alliance_team[k,'allied']<-0
+		}
+	}
+
+
+	
 		# Alliance Wealth
 	Wealth_alliance_i<-0
 for(k in alliance_team[alliance_team[,2]==i,1]){
