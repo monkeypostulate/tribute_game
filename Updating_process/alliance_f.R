@@ -55,17 +55,26 @@ forming_alliance<-function(i,j,actors){
 	names(alliance_team)<-c('id','allied','commitment','wealth')
 	
 
-	for(k in alliance_team[alliance_team[,'allied']==i,'id']){	
-		if(length(unique(alliance_team[k:i,'allied']))!=1){
-			alliance_team[k,'allied']<-0
-		}
-	}	
-		
-	for(k in alliance_team[alliance_team[,'allied']==j,'id']){	
-		if(length(unique(alliance_team[k:j,'allied']))!=1){
-			alliance_team[k,'allied']<-0
-		}
-	}
+  for(k in alliance_team[alliance_team[,'allied']==i,'id']){	
+    temp_path<-alliance_team[k:i,2]
+    exist_alliance<-length(temp_path[temp_path==i])==length(temp_path)
+    temp_path2<-if(k<i)c(1:k,i:N) else c(1:i,k:N)
+    temp_path2<-alliance_team[temp_path2,2]
+    exist_alliance2<-length(temp_path2[temp_path2==i])==length(temp_path2)
+    if(!(exist_alliance |exist_alliance2))
+      alliance_team[k,'allied']<-0
+      }	
+  
+  for(k in alliance_team[alliance_team[,'allied']==j,'id']){	
+    temp_path<-alliance_team[k:j,2]
+    exist_alliance<-length(temp_path[temp_path==j])==length(temp_path)
+    temp_path2<-if(k<j)c(1:k,k:N) else c(1:j,k:N)
+    temp_path2<-alliance_team[temp_path2,2]
+    exist_alliance2<-length(temp_path2[temp_path2==j])==length(temp_path2)
+    if(!(exist_alliance |exist_alliance2))
+      alliance_team[k,'allied']<-0
+  }
+  
 
 
 	
