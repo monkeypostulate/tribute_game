@@ -49,24 +49,19 @@ shinyServer(function(input, output, session) {
  plot_barchar(history_track, plot_at_time2,fight2)
  })
 	 
-	 
-		# Save: csv
-observeEvent(input$save, {
 	
-			filename<-paste0(input$filename,input$filename2,'.RData')
-	if(file.exists(input$filename)){
-	save(history_track, file=filename)}
-	} )	
-	# Save: plot
-observeEvent(input$save2, {	
-	filenamepdf<-paste0(input$filename,input$filename3,'.pdf')
-		
-		if(file.exists(input$filename)){pdf(filenamepdf)
-		plotg_alliance(history_track,.3,input$time_threshold, input$size_nodes, fight)
-		dev.off()
-		}
-	} )	
-	 
+	
+	
+	
+	  output$downloadData <- downloadHandler(
+   filename = function() {
+     paste('data-', Sys.Date(), '.RData', sep='')
+   },
+   content = function(con) {
+    save(history_track, file=con)
+   }
+ )
+	 	 
 	 	
 	 			})
 		

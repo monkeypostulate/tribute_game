@@ -10,7 +10,7 @@ library(grid)
 # #####################################################
 # Load functions
 # #####################################################
-
+ 
 folder_dir<-getwd()
 source(paste0(folder_dir,'/input_shiny/simulation_inpUt1.R'))
  source(paste0(folder_dir,'/input_shiny/plot_trends.R'))       
@@ -34,7 +34,7 @@ includeCSS("boot2.css"),
   # Application title
  
 
-h1("Tribute Model", align='center')   ,
+#h1("Tribute Model", align='center')   ,
 tags$ul(
 tags$ul(
 
@@ -44,24 +44,27 @@ selectInput("plot", 'Choose Plot', choices = c('Trends','Alliance Network', 'All
 ),
 
  tags$li(  
- actionButton(inputId ='simulation',label='Simulation', class='btn btn-primary', style='position:relative;top:1px;height:59px'), class='navbar-form navbar-left', href='#'),
- class='nav navbar-nav'  ), 
- 
- class='navbar navbar-inverse', style='height:65px, width:100%' ) ,
+ actionButton(inputId ='simulation',label='Simulation', class='btn btn-primary',
+              style='position:relative;top:15px;height:40px; padding-left: 30px;background-color:#0099CC;background-image: url(calculator3.png);background-size: 23px;background-repeat:no-repeat; background-position: 5px 50%'), class='navbar-form navbar-left', href='#'),
+ class='nav navbar-nav'  ),   
+
+tags$img( src='logo.png', width = '200px', height = '120px', style='position:absolute;top:-20px; right:5px' ),
+
+ class='navbar navbar-inverse', style='height:70px, width:100%; background-color:#66CCFF' ) ,
    
- 
+     
  
   # Sidebar with a slider input for number of observations
       tags$form(       
 simulation_parameters()
        , tags$hr(style='height: 2px;
     border-style: solid;
-    background-color: #f0ad4e;
+    background-color: #66CCFF;
     border-radius: 1px;
     width:100%')
     
 ,
-#tags$hr(style='height: 2px; border-style: solid; background-color: #f0ad4e;border-radius: 1px;width:100%'),
+#tags$hr(style='height: 2px; border-style: solid; background-color: #66CCFF;border-radius: 1px;width:100%'),
   conditionalPanel( condition="input.plot=='Trends'",
     plot_trends() 
      ),
@@ -71,14 +74,14 @@ simulation_parameters()
         conditionalPanel( condition="input.plot=='Alliance Wealth'",
     plot_alliance_wealth())
      , 
- tags$hr(style='height: 2px; border-style: solid; background-color: #f0ad4e;border-radius: 1px;width:100%')
+ tags$hr(style='height: 2px; border-style: solid; background-color: #66CCFF;border-radius: 1px;width:100%')
  ,
- class='jumbotron',style='width: 25%')    ,
- 
+ class='jumbotron',style='position:absolute;width: 30%;top:80px; height:550px;background-color:#0099CC')    ,
+   
  
 save_documents() ,
    
-   
+        
    
   # Show a plot of the generated distribution
   mainPanel(
@@ -90,7 +93,7 @@ conditionalPanel( condition="input.plot=='Alliance Network'", plotOutput("distPl
 conditionalPanel( condition="input.plot=='Alliance Wealth'", plotOutput("distPlot3"))
   
  )
- ,style='position:absolute;display:block;margin:auto;width:50%; left:25%; top:25%')
+ ,style='position:absolute;display:block;margin:auto;width:50%; left:31%; top:80px')
  
  )
 ) 

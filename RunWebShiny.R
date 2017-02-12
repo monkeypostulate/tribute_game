@@ -1,18 +1,19 @@
-#runApp('/Users/cuatrooctavos/Dropbox/Web_agents')
+# #runApp('/Users/cuatrooctavos/Dropbox/Web_agents')
 
 
 
 
-#runApp('/Users/cuatrooctavos/Desktop/world_map')
+# #runApp('/Users/cuatrooctavos/Desktop/world_map')
 
-library(shiny)
-folder<-getwd()
-runApp(folder)
+# library(shiny)
+# folder<-getwd()
+folder<-/Users/cuatrooctavos/Dropbox/Website_abelgabel/CLASS_ABM
+# runApp(folder)
 
-runUrl("https://github.com/rstudio/shiny_example/archive/master.tar.gz")
-
-
-
+# runUrl("https://github.com/rstudio/shiny_example/archive/master.tar.gz")
 
 
-runGitHub("CLASS_ABM", "abelgabel")  
+
+
+
+# runGitHub("CLASS_ABM", "abelgabel")  
