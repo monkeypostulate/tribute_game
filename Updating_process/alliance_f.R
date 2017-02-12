@@ -68,7 +68,7 @@ forming_alliance<-function(i,j,actors){
   for(k in alliance_team[alliance_team[,'allied']==j,'id']){	
     temp_path<-alliance_team[k:j,2]
     exist_alliance<-length(temp_path[temp_path==j])==length(temp_path)
-    temp_path2<-if(k<j)c(1:k,k:N) else c(1:j,k:N)
+    temp_path2<-if(k<j)c(1:k,j:N) else c(1:j,k:N)
     temp_path2<-alliance_team[temp_path2,2]
     exist_alliance2<-length(temp_path2[temp_path2==j])==length(temp_path2)
     if(!(exist_alliance |exist_alliance2))
