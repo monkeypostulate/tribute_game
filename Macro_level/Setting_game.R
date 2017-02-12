@@ -44,7 +44,7 @@ history_track<-list()
 history_track$wealth<-matrix(0,nrow=T_periods,ncol=N)
 history_track$active<-list()
 history_track$active$active<-matrix(0,nrow=T_periods, ncol=6)
-history_track$active$alliance<-matrix(0,nrow=T_periods,ncol=N)
+# history_track$active$alliance<-matrix(0,nrow=T_periods,ncol=N)
 history_track$actors<-list()
 
 # #####################################################	 
@@ -64,6 +64,11 @@ for(i in 1:N){
 
 
 history_track$actors[[time_s]]<-actors
+#Track Wealth
+for(actor_s in 1:N){
+history_track$wealth[time_s,actor_s]<-actors[[actor_s]]$wealth
+}
+
 # #####################################################	 
 # Choose active actors
 # #####################################################	 
@@ -86,10 +91,6 @@ if(!is.na(target[i])){
 	actors<-update_process(active[i], target[i],actors, cost)
 }
 
-#Track Wealth
-for(actor_s in 1:N){
-history_track$wealth[time_s,actor_s]<-actors[[actor_s]]$wealth
-}
 
 
 
