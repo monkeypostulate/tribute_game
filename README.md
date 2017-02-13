@@ -1,7 +1,7 @@
 
-<a href="introduction"> Introduction </a>
+<a href="#introduction"> Introduction </a>
 
-<a href="application"> Dynamics </a>
+<a href="#dynamics"> Dynamics </a>
 
 <a href="application"> Application </a>
 
