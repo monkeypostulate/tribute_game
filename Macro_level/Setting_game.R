@@ -44,13 +44,13 @@ history_track<-list()
 history_track$wealth<-matrix(0,nrow=T_periods,ncol=N)
 history_track$active<-list()
 history_track$active$active<-matrix(0,nrow=T_periods, ncol=6)
-# history_track$active$alliance<-matrix(0,nrow=T_periods,ncol=N)
 history_track$actors<-list()
 
 # #####################################################	 
 # Start Simulations
 # #####################################################	 
-
+withProgress(message = 'Simulation running', value = 0, min=0, 
+max=1, {
 for(time_s in 1:T_periods){
 
 if(time_s!=1){
@@ -93,9 +93,13 @@ if(!is.na(target[i])){
 
 
 
-
+percentage<-round(time_s/T_periods,1)
+incProgress(amount=percentage, detail = paste("Progress", percentage))
+ 
 }
 
+
+})
 # Output
 return(history_track)
 }

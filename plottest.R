@@ -1,7 +1,6 @@
 plot_barchar<-function(history_track, time_thre, fight_chosen){
 	
-	# time_thre<-351
-	# fight_chosen<-1
+ 
 i<-history_track$active$active[time_thre, fight_chosen]
 fight_chosen<-fight_chosen+3
 j<-history_track$active$active[time_thre, fight_chosen]

@@ -90,7 +90,7 @@ server <- function(input, output) {
    },
    content = function(con) {
     save(history_track, file=con)
-   }
+                           }
  )
 	 	 
 	 	
@@ -125,7 +125,9 @@ alliance_period=tags$input(id='time_threshold', type='number', step=1, value=6,m
 fight_chosen=tags$input(id='fight', type="number",value=1, step=1,min=1,max=3),
 
 wealth_histrogram=plotOutput("histogram"),
-initial_network=plotOutput("allianceInitialconditions")
+initial_network=plotOutput("allianceInitialconditions"),
+
+downloadlink=downloadLink("downloadData", "Download Simulation")
 
 )
   )
