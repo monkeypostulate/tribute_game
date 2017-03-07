@@ -1,0 +1,120 @@
+.figurezoom:hover{
+	transform:scale(.9);
+	
+}
+ 
+.information{
+    padding: 20px;
+    background-color:#F19D4D;
+    display: none;}
+
+.topics:hover+ .information{
+	    display: block;
+}
+ 
+ 
+.zoomin:hover{
+	transform: scale(1.2)
+	
+} 
+
+.shakeimage{
+	display: none;
+}
+
+.shake:hover+ .shakeimage {
+	    display: block;	
+	 }
+	 
+	 
+	 
+.rcode {
+    background-color:#D3D3D3;
+}	 
+	 
+ 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 .social-slide {
+	background-image: url('social_pictures/twitter.png');
+	height: 41px;
+	width: 48px;
+	background-size: 49px 42px;
+	#    background-repeat: no-repeat;
+	margin: 10px;
+	float: left;
+	-webkit-transition: all ease 0.3s;
+	-moz-transition: all ease 0.3s;
+	-o-transition: all ease 0.3s;
+	-ms-transition: all ease 0.3s;
+	transition: all ease 0.3s;
+}
+.social-slide:hover {
+	background-position: 0px -42px;
+		background-size: 49px 42px;
+	#    background-repeat: no-repeat;
+	      color: #77DDF6;
+	box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.8);
+}
+
+
+
+.linkedin-slide {
+	background-image: url('social_pictures/linkedin.png');
+	height: 41px;
+	width: 48px;
+	background-size: 49px 42px;
+	#    background-repeat: no-repeat;
+	margin: 10px;
+	float: left;
+	-webkit-transition: all ease 0.3s;
+	-moz-transition: all ease 0.3s;
+	-o-transition: all ease 0.3s;
+	-ms-transition: all ease 0.3s;
+	transition: all ease 0.3s;
+}
+.linkedin-slide:hover {
+	background-position: 0px -42px;
+		background-size: 49px 42px;
+	#    background-repeat: no-repeat;
+	      color: #77DDF6;
+	box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.8);
+}
+
+
+
+.facebook-slide {
+	background-image: url('social_pictures/github.png');
+	height: 41px;
+	width: 48px;
+	background-size: 49px 42px;
+	#    background-repeat: no-repeat;
+	margin: 10px;
+	float: left;
+	-webkit-transition: all ease 0.3s;
+	-moz-transition: all ease 0.3s;
+	-o-transition: all ease 0.3s;
+	-ms-transition: all ease 0.3s;
+	transition: all ease 0.3s;
+}
+.facebook-slide:hover {
+	background-position: 0px -42px;
+		background-size: 49px 42px;
+	#    background-repeat: no-repeat;
+	      color: #77DDF6;
+	box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.8);
+}
+	 
+	 

@@ -1,0 +1,543 @@
+folder_dir<-getwd()
+source(paste0(folder_dir,"/Actors/actor_function.R"))
+source(paste0(folder_dir,"/Updating_process/alliance_f.R"))
+source(paste0(folder_dir,"/Updating_process/target_actor.R"))
+source(paste0(folder_dir,"/Updating_process/updating_f.R"))
+source(paste0(folder_dir,"/plot_trends.R"))
+source(paste0(folder_dir,"/plot_alliance_net.R"))
+setting_simulate<-function(N, T_periods, cost){#
+######################################
+# Create Actors#
+######################################
+Wealth<-runif(N,min=300, max=500)#
+#
+actors<-list()#
+for(i in 1:N){#
+	actors[[i]]<-actor(position=i,Wealth[i],rep(0,N))#
+}#
+# #####################################################	 #
+##
+# #####################################################	 #
+#
+history_track<-list()#
+history_track$wealth<-matrix(0,nrow=T_periods,ncol=N)#
+history_track$active<-list()#
+history_track$active$active<-matrix(0,nrow=T_periods, ncol=6)#
+history_track$actors<-list()#
+#
+# #####################################################	 #
+# Start Simulations#
+# #####################################################	 #
+withProgress(message = 'Simulation running', value = 0, min=0, #
+max=1, {#
+for(time_s in 1:T_periods){#
+#
+if(time_s!=1){#
+# Star of new Year#
+Wealth<-runif(N,min=300, max=500)#
+#
+for(i in 1:N){#
+	actors[[i]]$wealth<-actors[[i]]$wealth+20 #
+}#
+}#
+history_track$actors[[time_s]]<-actors#
+#Track Wealth#
+for(actor_s in 1:N){#
+history_track$wealth[time_s,actor_s]<-actors[[actor_s]]$wealth#
+}#
+#
+# #####################################################	 #
+# Choose active actors#
+# #####################################################	 #
+active<-sample(1:N,3, replace=F)#
+#
+# #####################################################	 #
+# Choose target actors #
+# #####################################################	 #
+target<-rep(0,3)#
+for(i in 1:3){#
+	target[i]<-target_actor(active[i],actors)#
+	history_track$active$active[time_s,i]<-active[i]#
+	history_track$active$active[time_s,3+i]<-target[i]#
+}#
+# Update actors#
+if(!is.na(target[i])){#
+	forming_alliance(active[i],target[i],actors)#
+	actors<-update_process(active[i], target[i],actors, cost)#
+}#
+percentage<-round(time_s/T_periods,1)#
+incProgress(amount=percentage, detail = paste("Progress", percentage))#
+}#
+})#
+# Output#
+return(history_track)#
+}
+# ######################################################
+##
+##
+##
+# ######################################################
+# Call packages#
+library(igraph)#
+# Call functions#
+folder_dir<-getwd()#
+#
+source(paste0(folder_dir,"/Actors/actor_function.R"))#
+source(paste0(folder_dir,"/Updating_process/alliance_f.R"))#
+source(paste0(folder_dir,"/Updating_process/target_actor.R"))#
+source(paste0(folder_dir,"/Updating_process/updating_f.R"))#
+source(paste0(folder_dir,"/plot_trends.R"))#
+source(paste0(folder_dir,"/plot_alliance_net.R"))#
+setting_simulate<-function(N, T_periods, cost){#
+######################################
+# Create Actors#
+######################################
+Wealth<-runif(N,min=300, max=500)#
+#
+actors<-list()#
+for(i in 1:N){#
+	actors[[i]]<-actor(position=i,Wealth[i],rep(0,N))#
+}#
+# #####################################################	 #
+##
+# #####################################################	 #
+#
+history_track<-list()#
+history_track$wealth<-matrix(0,nrow=T_periods,ncol=N)#
+history_track$active<-list()#
+history_track$active$active<-matrix(0,nrow=T_periods, ncol=6)#
+history_track$actors<-list()#
+#
+# #####################################################	 #
+# Start Simulations#
+# #####################################################	 #
+for(time_s in 1:T_periods){#
+#
+if(time_s!=1){#
+# Star of new Year#
+Wealth<-runif(N,min=300, max=500)#
+#
+for(i in 1:N){#
+	actors[[i]]$wealth<-actors[[i]]$wealth+20 #
+}#
+}#
+history_track$actors[[time_s]]<-actors#
+#Track Wealth#
+for(actor_s in 1:N){#
+history_track$wealth[time_s,actor_s]<-actors[[actor_s]]$wealth#
+}#
+#
+# #####################################################	 #
+# Choose active actors#
+# #####################################################	 #
+active<-sample(1:N,3, replace=F)#
+#
+# #####################################################	 #
+# Choose target actors #
+# #####################################################	 #
+target<-rep(0,3)#
+for(i in 1:3){#
+	target[i]<-target_actor(active[i],actors)#
+	history_track$active$active[time_s,i]<-active[i]#
+	history_track$active$active[time_s,3+i]<-target[i]#
+}#
+# Update actors#
+if(!is.na(target[i])){#
+	forming_alliance(active[i],target[i],actors)#
+	actors<-update_process(active[i], target[i],actors, cost)#
+}#
+percentage<-round(time_s/T_periods,1)#
+incProgress(amount=percentage, detail = paste("Progress", percentage))#
+ if(time_s%%100==1) print(time_s)#
+}#
+# Output#
+return(history_track)#
+}
+histories<-setting_simulate(N=40, T_periods=10000, cost=.30)
+# ######################################################
+##
+##
+##
+# ######################################################
+# Call packages#
+library(igraph)#
+# Call functions#
+folder_dir<-getwd()#
+#
+source(paste0(folder_dir,"/Actors/actor_function.R"))#
+source(paste0(folder_dir,"/Updating_process/alliance_f.R"))#
+source(paste0(folder_dir,"/Updating_process/target_actor.R"))#
+source(paste0(folder_dir,"/Updating_process/updating_f.R"))#
+source(paste0(folder_dir,"/plot_trends.R"))#
+source(paste0(folder_dir,"/plot_alliance_net.R"))#
+setting_simulate<-function(N, T_periods, cost){#
+######################################
+# Create Actors#
+######################################
+Wealth<-runif(N,min=300, max=500)#
+#
+actors<-list()#
+for(i in 1:N){#
+	actors[[i]]<-actor(position=i,Wealth[i],rep(0,N))#
+}#
+# #####################################################	 #
+##
+# #####################################################	 #
+#
+history_track<-list()#
+history_track$wealth<-matrix(0,nrow=T_periods,ncol=N)#
+history_track$active<-list()#
+history_track$active$active<-matrix(0,nrow=T_periods, ncol=6)#
+history_track$actors<-list()#
+#
+# #####################################################	 #
+# Start Simulations#
+# #####################################################	 #
+for(time_s in 1:T_periods){#
+#
+if(time_s!=1){#
+# Star of new Year#
+Wealth<-runif(N,min=300, max=500)#
+#
+for(i in 1:N){#
+	actors[[i]]$wealth<-actors[[i]]$wealth+20 #
+}#
+}#
+history_track$actors[[time_s]]<-actors#
+#Track Wealth#
+for(actor_s in 1:N){#
+history_track$wealth[time_s,actor_s]<-actors[[actor_s]]$wealth#
+}#
+#
+# #####################################################	 #
+# Choose active actors#
+# #####################################################	 #
+active<-sample(1:N,3, replace=F)#
+#
+# #####################################################	 #
+# Choose target actors #
+# #####################################################	 #
+target<-rep(0,3)#
+for(i in 1:3){#
+	target[i]<-target_actor(active[i],actors)#
+	history_track$active$active[time_s,i]<-active[i]#
+	history_track$active$active[time_s,3+i]<-target[i]#
+}#
+# Update actors#
+if(!is.na(target[i])){#
+	forming_alliance(active[i],target[i],actors)#
+	actors<-update_process(active[i], target[i],actors, cost)#
+}#
+percentage<-round(time_s/T_periods,1)#
+ if(time_s%%100==1) print(time_s)#
+}#
+# Output#
+return(history_track)#
+}
+histories<-setting_simulate(N=40, T_periods=10000, cost=.30)
+histories<-setting_simulate(N=10, T_periods=2000, cost=.30)
+plotg_alliance(history_track= histories, threshold=50, time_thre=10, size_nodes=1, fight_chosen=1)
+plotg_alliance(history_track= histories, threshold=50, time_thre=10, size_nodes=1, fight_chosen=1)
+plotg_alliance(history_track= histories, threshold=50, time_thre=10, size_nodes=1, fight_chosen=1)
+library(igrapg)
+library(igraph)
+plotg_alliance(history_track= histories, threshold=50, time_thre=10, size_nodes=1, fight_chosen=1)
+histories[[1]]
+histories[[1]][[1]]
+names(histories)
+plot(1:10,1:10)
+plotg_alliance(history_track= histories, threshold=50, time_thre=10, size_nodes=1, fight_chosen=1)
+plotg_alliance<-function(history_track, threshold, time_thre, size_nodes, fight_chosen){#
+	actors<-history_track$actors[[time_thre]]#
+	Time_s<-nrow(history_track$wealth)#
+    N<-length(actors)#
+# Layout#
+  l<-matrix(0,nrow=N,ncol=2)#
+for(i in 1:N){#
+  l[i,]<-c(cos(2*(i-1)*pi/N),2*sin(2*(i-1)*pi/N))#
+}#
+# Create Network#
+coallitions<-matrix(0,nrow=N,ncol=N)#
+rownames(coallitions)<-1:N#
+colnames(coallitions)<-1:N#
+#
+for(k in 1:N){#
+for(k2 in c(1:N)[-k]){#
+#
+coallitions[k,k2]<- if(actors[[k]]$commitment[k2]>=threshold) 1 else 0#
+}}#
+netw<-graph_from_adjacency_matrix(coallitions)#
+wealth_all<-history_track$wealth[time_thre,]/max(history_track$wealth[time_thre,])#
+netw <-igraph::set_vertex_attr(netw, 'wealth', index = 1:N, wealth_all)#
+a<-history_track$active$active[time_thre, fight_chosen]#
+fight_chosen<-fight_chosen+3#
+b<-history_track$active$active[time_thre, fight_chosen]#
+if(!is.na(b)){#
+title<-paste0("Active actor: ",a,'. Target actor: ',b)#
+veccol<-forming_alliance(a,b,actors)$alliance[,'allied']#
+veccol<-replace(veccol, veccol ==a,-1)#
+ veccol<-replace(veccol, veccol ==b,-2)#
+veccol<-veccol+3#
+}#
+else{#
+	title<-''#
+	veccol<-rep(3,N)#
+}#
+# plot#
+if(size_nodes=='Proportional to wealth')#
+plot.igraph(netw, vertex.size=35* wealth_all,edge.arrow.size=0.01, layout=l, vertex.color=c('blue','green', 'gray60')[veccol], main=title, xlab=paste0('Period:', time_thre, '. Threshold: ', threshold))#
+#
+if(size_nodes=='Normal')#
+plot.igraph(netw, vertex.size=35,edge.arrow.size=0.01, layout=l, vertex.color=c('blue','green', 'gray60')[veccol], main=title, xlab=paste0('Period:', time_thre, '. Threshold: ', threshold))#
+}
+plotg_alliance(history_track= histories, threshold=50, time_thre=10, size_nodes=1, fight_chosen=1)
+plotg_alliance(history_track= histories, threshold=50, time_thre=10, size_nodes=10, fight_chosen=1)
+plotg_alliance(history_track= histories, threshold=50, time_thre=10, size_nodes=10, fight_chosen=2)
+names(history_track)
+names(histories)
+t<-100
+histories$actors[[t]]
+names(histories)
+t<-1000
+histories$active[[t]]
+histories$active
+histories$active[t,]
+histories$active[[1]]
+histories$actors[[t]][1,]
+names(histories$actors[[t]])
+histories$actors[[t]][[1]]
+histories$active[t,]
+histories$active[[t]]
+histories$active[t]
+histories$active
+histories$active[1]
+histories$active[t]
+histories$active[2]
+histories$active[1][t,]
+plotg_alliance(history_track= histories, threshold=50, time_thre=10, size_nodes=10, fight_chosen=2)
+history_track<-histories
+threshold=50
+time_thre=10
+size_nodes=10
+fight_chosen=
+1
+actors<-history_track$actors[[time_thre]]
+Time_s<-nrow(history_track$wealth)
+N<-length(actors)#
+# Layout#
+  l<-matrix(0,nrow=N,ncol=2)#
+for(i in 1:N){#
+  l[i,]<-c(cos(2*(i-1)*pi/N),2*sin(2*(i-1)*pi/N))#
+}#
+# Create Network#
+coallitions<-matrix(0,nrow=N,ncol=N)#
+rownames(coallitions)<-1:N#
+colnames(coallitions)<-1:N#
+#
+for(k in 1:N){#
+for(k2 in c(1:N)[-k]){#
+#
+coallitions[k,k2]<- if(actors[[k]]$commitment[k2]>=threshold) 1 else 0#
+}}#
+netw<-graph_from_adjacency_matrix(coallitions)#
+wealth_all<-history_track$wealth[time_thre,]/max(history_track$wealth[time_thre,])#
+netw <-igraph::set_vertex_attr(netw, 'wealth', index = 1:N, wealth_all)#
+a<-history_track$active$active[time_thre, fight_chosen]#
+fight_chosen<-fight_chosen+3#
+b<-history_track$active$active[time_thre, fight_chosen]#
+if(!is.na(b)){#
+title<-paste0("Active actor: ",a,'. Target actor: ',b)#
+veccol<-forming_alliance(a,b,actors)$alliance[,'allied']#
+veccol<-replace(veccol, veccol ==a,-1)#
+ veccol<-replace(veccol, veccol ==b,-2)#
+veccol<-veccol+3#
+}#
+else{#
+	title<-''#
+	veccol<-rep(3,N)#
+}#
+# plot#
+if(size_nodes=='Proportional to wealth')#
+plot.igraph(netw, vertex.size=35* wealth_all,edge.arrow.size=0.01, layout=l, vertex.color=c('blue','green', 'gray60')[veccol], main=title, xlab=paste0('Period:', time_thre, '. Threshold: ', threshold))#
+#
+if(size_nodes=='Normal')#
+plot.igraph(netw, vertex.size=35,edge.arrow.size=0.01, layout=l, vertex.color=c('blue','green', 'gray60')[veccol], main=title, xlab=paste0('Period:', time_thre, '. Threshold: ', threshold))
+plot.igraph(netw, vertex.size=35* wealth_all,edge.arrow.size=0.01, layout=l, vertex.color=c('blue','green', 'gray60')[veccol], main=title, xlab=paste0('Period:', time_thre, '. Threshold: ', threshold))
+plotg_alliance(history_track= histories, threshold=50, time_thre=10, size_nodes='Proportional to wealth', fight_chosen=2)
+t<-10
+plotg_alliance(history_track= histories, threshold=50, time_thre=t, size_nodes='Proportional to wealth', fight_chosen=2)
+t<-100
+plotg_alliance(history_track= histories, threshold=50, time_thre=t, size_nodes='Proportional to wealth', fight_chosen=2)
+plotg_alliance(history_track= histories, threshold=50, time_thre=t, size_nodes='Proportional to wealth', fight_chosen=1)
+t<-1000
+plotg_alliance(history_track= histories, threshold=50, time_thre=t, size_nodes='Proportional to wealth', fight_chosen=1)
+folder<-'/Users/cuatrooctavos/Desktop/tribute_model'
+folder<-'/Users/cuatrooctavos/Desktop/tribute_model/'#
+for(i in 1: 2000){#
+	if(i %%10==1){#
+file<-paste0(folder, 'tributemodel',j,'.png')#
+png(file)#
+plotg_alliance(history_track= histories, threshold=50, time_thre=t, size_nodes='Proportional to wealth', fight_chosen=1)#
+j<-j+1#
+}#
+}
+j<-1#
+folder<-'/Users/cuatrooctavos/Desktop/tribute_model/'#
+for(i in 1: 2000){#
+	if(i %%10==1){#
+file<-paste0(folder, 'tributemodel',j,'.png')#
+png(file)#
+plotg_alliance(history_track= histories, threshold=50, time_thre=t, size_nodes='Proportional to wealth', fight_chosen=1)#
+j<-j+1#
+}#
+}
+j<-1#
+folder<-'/Users/cuatrooctavos/Desktop/tribute_model/'#
+for(i in 1: 2000){#
+	if(i %%10==1){#
+file<-paste0(folder, 'tributemodel',j,'.png')#
+png(file)#
+plotg_alliance(history_track= histories, threshold=50, time_thre=t, size_nodes='Proportional to wealth', fight_chosen=1)#
+j<-j+1#
+dev.off()#
+}#
+}
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+dev.off()
+j<-1#
+folder<-'/Users/cuatrooctavos/Desktop/tribute_model/'#
+for(i in 1: 2000){#
+	if(i %%10==1){#
+file<-paste0(folder, 'tributemodel',j,'.png')#
+png(file)#
+plotg_alliance(history_track= histories, threshold=50, time_thre=t, size_nodes='Proportional to wealth', fight_chosen=1)#
+j<-j+1#
+dev.off()#
+}#
+}
+j<-1#
+folder<-'/Users/cuatrooctavos/Desktop/tribute_model/'#
+for(i in 1: 2000){#
+	if(i %%10==1){#
+file<-paste0(folder, 'tributemodel',j,'.png')#
+png(file)#
+plotg_alliance(history_track= histories, threshold=50, time_thre=i, size_nodes='Proportional to wealth', fight_chosen=1)#
+j<-j+1#
+dev.off()#
+}#
+}
+histories<-setting_simulate(N=20, T_periods=2000, cost=.30)#
+j<-1#
+folder<-'/Users/cuatrooctavos/Desktop/tribute_model/'#
+for(i in 1: 2000){#
+	if(i %%10==1){#
+file<-paste0(folder, 'tributemodel',j,'.png')#
+png(file)#
+plotg_alliance(history_track= histories, threshold=50, time_thre=i, size_nodes='Proportional to wealth', fight_chosen=1)#
+j<-j+1#
+dev.off()#
+}#
+}
+histories<-setting_simulate(N=25, T_periods=5000, cost=.30)#
+j<-1#
+folder<-'/Users/cuatrooctavos/Desktop/tribute_model/'#
+for(i in 1: 2000){#
+	if(i %%10==1){#
+file<-paste0(folder, 'tributemodel',j,'.png')#
+png(file)#
+plotg_alliance(history_track= histories, threshold=50, time_thre=i, size_nodes='Proportional to wealth', fight_chosen=1)#
+j<-j+1#
+dev.off()#
+}#
+}
+histories<-setting_simulate(N=25, T_periods=5000, cost=.60)#
+j<-1#
+folder<-'/Users/cuatrooctavos/Desktop/tribute_model/'#
+for(i in 1: 5000){#
+	if(i %%10==1){#
+file<-paste0(folder, 'tributemodel',j,'.png')#
+png(file)#
+plotg_alliance(history_track= histories, threshold=50, time_thre=i, size_nodes='Proportional to wealth', fight_chosen=1)#
+j<-j+1#
+dev.off()#
+}#
+}
+save(paste0(folder,'history.RData'))
+save(histories,paste0(folder,'history.RData'))
+paste0(folder,'history.RData')
+save(histories,file=paste0(folder,'history.RData'))
+save(histories,file=paste0(folder,'history.RData'))
+save(histories,file=paste0(folder,'history.RData'))

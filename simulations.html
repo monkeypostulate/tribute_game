@@ -14,6 +14,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <meta name="keywords" content="Coffee Break Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="css/mystyle.css" rel='stylesheet' type='text/css' />
 <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
 <link href="css/style.css" rel='stylesheet' type='text/css' />
 <script src="js/jquery.min.js"></script>
@@ -35,11 +36,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="header-top">
 		<div class="container">
 			<div class="head-main">
-				<img src="images/logo-1.png" alt="" /> 
+			
 			</div>
 		</div>
 	</div>
 	<!--header-top-end-->
+		<div class="banner">
+		<div class="container">
+			<div class="banner-top">
 	<!--start-header-->
 	<div class="header">
 		<div class="container">
@@ -79,13 +83,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</script>
 	<!-- script-for-menu -->
 	<!--banner-starts-->
-	<div class="banner">
-		<div class="container">
-			<div class="banner-top">
+
 				<div class="banner-text">
 					<h1>Tribute model</h1>
-					   <h2>Run</h2>
-					{{startsimulations}}
+					   <h2>abelgabel</h2>
+				
 					<div class="banner-btn">
 						
 					</div>
@@ -95,17 +97,67 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 	<!--banner-end-->
 	
-		<div class="container">
-					<ul  style=" list-style-type: none;  margisn: 0;paddinsg: 0;overflow: hidden;"> 
-  	
-						<h4>Parameters:	   </h4>
-			<li style="float:left; text-align: center;padding: 16px;">  Number of actors    {{size_chosen}}   </li>
-						<li style="float:left; text-align: center; padding: 16px;">  Number of Periods:  {{time_chosen}}
-						</li>
-						<li style="float:left; text-align: center;padding: 16px;">  Cost of War:  {{costwar_chosen}}  </li>
-					</ul>
-			</div>		
-	
+	<div class="about">
+	<div class="container">	
+<div  class="bread-crumbs">
+<ol class="breadcrumb">
+<li> Parameters: </li>
+ <li>  Number of actors:  {{size_chosen}}</li>
+<li >  Number of Periods:  {{time_chosen}}  </li>
+<li>  Cost of War:  {{costwar_chosen}}  </li>
+<li >   <span onclick="displayinfo()"><img src="images/questionmark.png"  style="height:25px">   </span> </li>
+<li>
+<div id="info1" class="information"> 
+<p>The cost of war goes from 0 (no cost) to 1  (total loss). </p>
+<p> If you would like to see the dynamic of the model for the first time, choose:
+<p> Number of agents=10 and number of periods=500.  </p></div>
+</li>
+<li>
+<div id="info1" class="information"> 
+<p>The cost of war goes from 0 (no cost) to 1  (total loss). </p>
+<p> If you would like to see the dynamic of the model for the first time, choose:
+<p> Number of agents=10 and number of periods=500.  </p></div>
+</li>
+
+</ol>
+
+<script>
+function displayinfo() {
+    var x = document.getElementById('info1');
+    if (x.style.display === 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
+</script>
+
+<ol class="breadcrumb">
+<li>Run simulation: 	{{startsimulations}} </li>
+<li> <span style="color: #F19F4D;">Plots are shown after running a simulation. </span> </li>
+<li >   <span onclick="displayinfoDownload()"><img src="images/questionmark.png"  style="height:25px">   </span> </li> 
+<li>
+<div id="infodownload" class="information"> 
+<p> After running the simulations, you can download it by clicking download <a href="#download"> Click</a> </p></div>
+</li>
+</ol>
+
+
+<script>
+function displayinfoDownload() {
+    var x = document.getElementById('infodownload');
+    if (x.style.display === 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
+</script>
+
+</div>
+</div>
+</div>
+</div>	 	
 
 
 	<!--about-starts-->
@@ -114,80 +166,87 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="about-main">
 				<div class="col-md-8 about-left">
 					<div class="about-one">
-						<h3>Wealth</h3>
+						<h3>Compare wealth between two actors.</h3>
 					</div>
 					<div class="about-two">
 					 {{plot_trends}}
-				    <div align="center">   <ul> <li>
-						<p> Actor 1</p> {{actor_1}} 
-						</li >
-						<li>  <p style="width:20px"> </p>  </li>
-						  <li>
-						<p> Actor 2 </p> {{actor_2}}
-				</li>  </ul>
-				</div>
-						
-				
-						<ul>
-	<div align="center">
-		<ul> <li>
-						<p> Threshold</p> {{threshold_chosen}} 
-						</li >
-						<li>  <p style="width:10px"> </p>  </li>
-						  <li>
-						<p> Period  </p> {{alliance_period}}
-				</li> 
-				<li>  <p style="width:10px"> </p>  </li>
-				<li>
-						<p> Fight  </p> {{fight_chosen}}
+	
+					   <div class="breadcrumb"> 
+	      <ol class="breadcrumb">
+	      <li> Choose actors: </li> 
+	      <li>First actor: {{actor_1}} </li >
+			<li>Second actor: {{actor_2}}
 				</li>  
-				</ul>
- </div>
-		
+				</ol>
+				</div>
+	</div>
+						
 					<div class="about-tre">
 						<div class="a-1">
 							<div class="col-md-6 abt-left">
-									<h3> Alliance Network </h3>						
-								 {{alliance_network1}}
+									<h3> Plot  alliance Network: </h3>						
+							 <div class="topics">	 
+							 {{alliance_network2}}
+							 </div>
+							 <div class="information"> Size of nodes is proportional to their wealth.</div>
 								  <div align="left">  
 											</div>
 							</div>
 							<div class="col-md-6 abt-left">
-							<h3>Alliance Network</h3>
-							<p> Size of nodes is proportional to their wealth.</p>
+							<h3>Plot Alliance Network</h3>
 
-								{{alliance_network2}}
-							</div>
-
-							<div class="col-md-6 abt-left">
-								<h3> Wealth of Alliances </h3>
 								{{wealth_histrogram}}
+								
+										
 							</div>
-							
-							   <div class="col-md-6 abt-left">
- 								<h3>Initial Conditions</h3>
-								{{initial_network}}
-							</div>
-							<div class="clearfix"></div>
+			
+													
 						</div>
 					</div>	
 				</div>
-				<div class="col-md-4 about-right heading">
-
-				<div class="clearfix"></div>			
-			</div>		
 		</div>
 	</div>
+	
+	
 	</div>
 	<!--about-end-->
 	
+ 	<div class="about">
+		<div class="container">
+ <div  class="bread-crumbs">
+<ol class="breadcrumb">
+<li> Plot's parameter:  </li>
+		 <li>  Threshold: {{threshold_chosen}} </li >
+		<li>  Period: {{alliance_period}}	</li> 
+		<li>  Fight:  {{fight_chosen}} </li>  
+		<li >   <span onclick="displayinfo2()"><img src="images/questionmark.png"  style="height:25px">   </span>
+<div id="info2" class="information"> There is a link between actors when their commitment is higher than  Threshold. Each period there are three potential wars.   </div>   </li>
+
+				</ol>
+ </div>
+ </div>
+ </div>
+
+ 
+ <script>
+function displayinfo2() {
+    var x = document.getElementById('info2');
+    if (x.style.display === 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+}
+</script>
+ 
  
 	<!--footer-starts-->
+			<div style="background-color:#D9D9D9">
 	<div class="footer">
 		<div class="container">
-			<div class="footer-text">
-			{{downloadlink}}
-			</div>
+			<div class="footer-text" id="download">
+	 {{downloadlink}}  	
+</div>	</div>
 		</div>
 	</div>
 	<!--footer-end-->
