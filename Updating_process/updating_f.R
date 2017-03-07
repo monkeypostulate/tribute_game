@@ -1,29 +1,44 @@
 # #####################################################
 #
-#
-#
+# Tribute Model:
+# Function: updating actor
+# Author: Abel Camacho Guardian
+# This file is subject to the terms and conditions defined in
+# file 'LICENSE.txt'
 # #####################################################
+
+# ################
+# Input
+# Active actor: i
+# Target actor: j
+# all actors: actors
+# cost of war: lost
+# ################
+
+# ################
+# Output: Updated actors
+# ################
+
+
+
 
 update_process<-function(i,j, actors, lost){
 	
 	
-# #####################################################
-# Hamlet:
-# Fight or not to fight, that is the question:
-# Whether 'tis nobler in the mind to suffer
-# The slings and arrows of outrageous fortune,
-# Or to take Arms against a Sea of troubles, 	
-# #####################################################	 
+
 # Fight or not?
 	alliance_i<-forming_alliance(i,j,actors)$alliance[forming_alliance(i,j,actors)$alliance[,'allied']==i,]
 	 total_weath_i<-forming_alliance(i,j,actors)$wealth1
+	 
 alliance_j<-forming_alliance(i,j,actors)$alliance[forming_alliance(i,j,actors)$alliance[,'allied']==j,]
 	total_weath_j<-forming_alliance(i,j,actors)$wealth2
 	
-fight= lost*total_weath_i*(actors[[j]]$wealth/total_weath_j)>250
+# fight=True if cost to war is smaller than the paying the tribute	
+fight= lost*total_weath_i*(actors[[j]]$wealth/total_weath_j)<250
 	
 	# Decision not to fight
-	if(fight){ # There is no fight
+	if(!fight){ 
+# There is no fight
 	  # Update wealth 
 	  # gets tribute
 	actors[[i]]$wealth<-actors[[i]]$wealth+min(actors[[j]]$wealth,250)
@@ -37,15 +52,8 @@ fight= lost*total_weath_i*(actors[[j]]$wealth/total_weath_j)>250
 	}
 
 # Decision to fight:
-# #####################################################	 
-# Caeser:
-# Cowards die many times before their deaths; 
-# The valiant never taste of death but once.
-# It seems to me most strange that men should fear; 
-# Seeing that death, a necessary end, 
-# Will come when it will come
-# #####################################################	 
-	if(!fight){
+ 
+	if(fight){
 		####################
 		# Alliances:
 		####################
@@ -57,7 +65,7 @@ fight= lost*total_weath_i*(actors[[j]]$wealth/total_weath_j)>250
 	(alliance_i[alliance_i[,'id']==k,'wealth']/total_weath_i)* total_weath_j*lost,0)
 	}
 	
-# Cost and commitment update: Alliance j:
+# Cost update: Alliance j:
  for(k in alliance_j[,'id'])	{
   actors[[k]]$wealth<-max(alliance_j[alliance_j[,'id']==k,'wealth']-
 	(alliance_j[alliance_j[,'id']==k,'wealth']/total_weath_j)* total_weath_i*lost,0)
@@ -65,11 +73,12 @@ fight= lost*total_weath_i*(actors[[j]]$wealth/total_weath_j)>250
 
 	
 
+# #####
 # Update all commitments	
 	ni<-length(alliance_i[,'id'])
 	nj<-length(alliance_j[,'id'])
 
-	
+# For alliance i (increase of commitment by 10%)
    for(k in 1:ni){
  	 for(k2 in k:ni){ 
  		 i1<-alliance_i[k,'id']
@@ -79,7 +88,7 @@ fight= lost*total_weath_i*(actors[[j]]$wealth/total_weath_j)>250
  	 }
    }	
 
-
+# For alliance j (increase of commitment by 10%)
   for(k in 1:nj){
  	 for(k2 in k:nj){
  		 j1<-alliance_j[k,'id']
@@ -89,6 +98,7 @@ fight= lost*total_weath_i*(actors[[j]]$wealth/total_weath_j)>250
  	 }
   }
 
+# Between actors in different alliances (decrease of commitment by 10%)
   for(k in 1:ni){
  	 for(k2 in 1:nj){
  		 ic<-alliance_i[k,'id']
@@ -99,10 +109,11 @@ fight= lost*total_weath_i*(actors[[j]]$wealth/total_weath_j)>250
   }	
 	
 	}
+# Actors do not have commitment to themselves.
 	 		 actors[[i]]$commitment[i]<-0
 	 		 actors[[j]]$commitment[j]<-0
 
-	# Output: Updated actors
+# Output: Updated actors
 	return(actors)
 	
 	

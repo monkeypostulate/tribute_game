@@ -1,32 +1,52 @@
 # #####################################################
 #
-#
-#
+# Tribute Model:
+# Function: Creates plot showing the wealth trend of two actors
+# Author: Abel Camacho Guardian
+# This file is subject to the terms and conditions defined in
+# file 'LICENSE.txt'
 # #####################################################
 
+# ###############
+# Input: actors (i,j)
+#        wealth of actors: walth
+# ###############
 
+# ###############
+# Output: plot
+# ###############
 
 
 plot_com<-function(actors_c, wealth){
 
 
-
-
+# number of periods
 n<-nrow(wealth)
-data_plotted<-matrix(0,nrow=n, ncol=3)
 
+# Data:
+# First column period
+# second column wealth of actor i
+# second column wealth of actor j
+data_plotted<-matrix(0,nrow=n, ncol=3)
 data_plotted[,1]<-1:n
 
+# actor i equals actors_c[1]
+# actor j equals actors_c[2]
 data_plotted[,2]<-wealth[,actors_c[1]]
 data_plotted[,3]<-wealth[,actors_c[2]]
+
+# Transform matrix as data.frame
 data_plotted<-data.frame(data_plotted)
-names(data_plotted)<-c('id','a1','a2')
+# Name variables 
+names(data_plotted)<-c('id','wealth1','wealth2')
 
 actor1<-paste0('Actor ', actors_c[1])
 actor2<-paste0('Actor ', actors_c[2])
-ggplot(data= data_plotted)+geom_line(aes(x=id,y=a1,colour=actor1))+geom_point(aes(x=id,y=a1,colour=actor1))+
-geom_line(aes(x=id,y=a2, colour = actor2))+
-geom_point(aes(x=id,y=a2, colour = actor2))+
+
+# Crate plot
+ggplot(data= data_plotted)+geom_line(aes(x=id,y=wealth1,colour=actor1))+geom_point(aes(x=id,y=wealth1,colour=actor1))+
+geom_line(aes(x=id,y=wealth2, colour = actor2))+
+geom_point(aes(x=id,y=wealth2, colour = actor2))+
 xlab('Time')+ylab('Wealth')+theme(   axis.text = element_text(size = 14),
     legend.key = element_rect(fill = "gray80"),
     legend.background = element_rect(fill = "white"),

@@ -1,17 +1,29 @@
+# #####################################################
+#
+# Tribute Model:
+# Function: Creates plot showing the wealth of alliances
+# Author: Abel Camacho Guardian
+# This file is subject to the terms and conditions defined in
+# file 'LICENSE.txt'
+# #####################################################
+
 plot_barchar<-function(history_track, time_thre, fight_chosen){
 	
+ 
  
 i<-history_track$active$active[time_thre, fight_chosen]
 fight_chosen<-fight_chosen+3
 j<-history_track$active$active[time_thre, fight_chosen]
 	
 	actors<-history_track$actors[[time_thre]]
+	
+	if(!is.na(j)){
 	alliance_i<-forming_alliance(i,j,actors)$alliance[forming_alliance(i,j,actors)$alliance[,'allied']==i,]
 	 total_weath_i<-forming_alliance(i,j,actors)$wealth1
 
 alliance_j<-forming_alliance(i,j,actors)$alliance[forming_alliance(i,j,actors)$alliance[,'allied']==j,]
 	total_weath_j<-forming_alliance(i,j,actors)$wealth2
-	
+
 	
 	cc1<-alliance_i[,c('id','allied','wealth')]
 	cc2<-alliance_j[,c('id','allied','wealth')]
@@ -46,6 +58,8 @@ ylim(0,max(c1[,'wealth'],c2[,'wealth'])+1)+ggtitle('Target Alliance')+xlab('Acto
 
 grid.arrange(g1,g2, nrow=1)
  
-	
-	
+}	
+
+if(is.na(j)){	
+plot(1:10,1:10,xlab='',ylab='', type='n', xaxt='n', yaxt='n', main='Active actor did not target anyone')	}
 }
