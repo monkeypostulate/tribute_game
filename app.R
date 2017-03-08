@@ -100,7 +100,10 @@ ui <- fluidPage(htmlTemplate( "simulations.html",
 
 # #####
 # Start simulation
-startsimulations=actionButton(inputId ='simulation',label='Simulation'),
+startsimulations=actionButton(inputId ='simulation',label='Simulation', style="color:white;
+	background-color:#F19F4D;
+	border-radius: 8px;
+	height:28px;"),
 
 # #####
 # Basic Parameters
