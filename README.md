@@ -22,16 +22,16 @@ Initial conditions:
 <li>An  actor i has an initial wealth of Wi with Wi a random number between 300 and 500. </li>
 </ul>
 <ol>
-<li> Each Period, three actors A1, A2, A3 are chosen at random. </li>
-<li> Actor Ai chooses a neighbour actor Bi and demands a tribute of 250. </li>
-<li> Actor Bi chooses to pay or go to war, depending on which will cause less loss of wealth. </li>
+<li> Each Period, three actors A<sub>1</sub>, A<sub>2</sub>, A<sub>3</sub> are chosen at random. </li>
+<li> Actor A<sub>i</sub> chooses a neighbour actor B<sub>i</sub> and demands a tribute of 250. </li>
+<li> Actor B<sub>i</sub> chooses to pay or go to war, depending on which will cause less loss of wealth. </li>
 </ol>
 
-<p> If  actor Bi pays the tribute, then the commitments between actor Ai and Bi increase by 10% (the maximum value is 100%).</p>
-<p> If they fight, their commitment decrease by 10% (minimum value 0%). </p>
+<p> If  actor B<sub>i</sub> pays the tribute, then the commitments between actor A<sub>i</sub> and B<sub>i</sub> increase by 10% (the maximum value is 100%).</p>
+<p> If they fight, then their commitment decrease by 10% (minimum value 0%). </p>
 
-<p> An actor C  supports actor Ai if the commitment between them is larger than the commitment between C and Bi, 
-and there is a sequence of actors supporting Ai from C to Ai. </p>
+<p> An actor C  supports actor A<sub>i</sub> if the commitment between them is larger than the commitment between C and B<sub>i</sub>, 
+and there is a sequence of actors supporting A<sub>i</sub> from C to A<sub>i</sub>. </p>
 <p> In the same way, the target actor may receive the support from other actors. </p>
 
 ![Screenshot](Period2997.png)
@@ -39,8 +39,9 @@ and there is a sequence of actors supporting Ai from C to Ai. </p>
 because actors 9-15 support actor 16 and its commitment to actor 17 is stronger than to actor 16. </p>
 
 
-<p> If actor Bi decides to go to war, then actors supporting Ai lose 25% of the  total wealth of the actors supporting Bi times the commitment to actor Ai. </p>
-<p> In the same manner, actors supporting actor Bi lose wealth if actor Bi decides to go to war.
+<p> If actor B<sub>i</sub> decides to go to war, then actors supporting A<sub>i</sub> lose 25% of the  total wealth of the actors supporting B<sub>i</sub> times the commitment to actor A<sub>i</sub>. </p>
+<p> In the same manner, actors supporting actor <sub>
+</sub> lose wealth if actor B<sub>i</sub> decides to go to war.
 <p> If there is a war, the commitment between actors fighting on the same side is increased by $10%, 
 and between actors in opposite side is decreased by  10%.</p>
 
@@ -75,7 +76,8 @@ You can plot:
 </ol>
 </li>
 <li>
-A histogram showing the wealth of the actors supporting Ai and Bi.
+A histogram showing the wealth of the actors supporting A<sub>i</sub> and 
+.
 </li>
 <ul>
 
