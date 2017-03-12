@@ -7,6 +7,8 @@
 # file 'LICENSE.txt'
 # #####################################################
 
+# Input
+
 plot_barchar<-function(history_track, time_thre, fight_chosen){
 	
  
