@@ -12,7 +12,7 @@
 # Active actor: i
 # Target actor: j
 # all actors: actors
-# cost of war: lost
+# cost of war: cost
 # ################
 
 # ################
@@ -22,9 +22,9 @@
 
 
 
-update_process<-function(i,j, actors, lost){
+update_process<-function(i,j, actors, cost){
 	
-	
+
 
 # Fight or not?
 	alliance_i<-forming_alliance(i,j,actors)$alliance[forming_alliance(i,j,actors)$alliance[,'allied']==i,]
@@ -34,8 +34,13 @@ alliance_j<-forming_alliance(i,j,actors)$alliance[forming_alliance(i,j,actors)$a
 	total_weath_j<-forming_alliance(i,j,actors)$wealth2
 	
 # fight=True if cost to war is smaller than the paying the tribute	
-fight= lost*total_weath_i*(actors[[j]]$wealth/total_weath_j)<250
-	
+if(total_weath_j!=0){
+fight= cost*total_weath_i*(actors[[j]]$wealth/total_weath_j)<250
+} else
+{
+fight=F
+}	
+
 	# Decision not to fight
 	if(!fight){ 
 # There is no fight
@@ -62,13 +67,13 @@ fight= lost*total_weath_i*(actors[[j]]$wealth/total_weath_j)<250
 # Cost update: Alliance i:
  for(k in alliance_i[,'id'])	{
   actors[[k]]$wealth<-max(alliance_i[alliance_i[,'id']==k,'wealth']-
-	(alliance_i[alliance_i[,'id']==k,'wealth']/total_weath_i)* total_weath_j*lost,0)
+	(alliance_i[alliance_i[,'id']==k,'wealth']/total_weath_i)* total_weath_j*cost,0)
 	}
 	
 # Cost update: Alliance j:
  for(k in alliance_j[,'id'])	{
   actors[[k]]$wealth<-max(alliance_j[alliance_j[,'id']==k,'wealth']-
-	(alliance_j[alliance_j[,'id']==k,'wealth']/total_weath_j)* total_weath_i*lost,0)
+	(alliance_j[alliance_j[,'id']==k,'wealth']/total_weath_j)* total_weath_i*cost,0)
 	}	
 
 	

@@ -1,15 +1,9 @@
 # #####################################################
-#
-# Function that creates alliance network
-#
-# #####################################################
 
 
 
-plotg_alliance<-function(history_track, threshold, time_thre, size_nodes, fight_chosen){
-	actors<-history_track$actors[[time_thre]]
+plotg_alliance2<-function(actors,active, target, threshold, size_nodes, fight_chosen, time_thre){
 	
-	Time_s<-nrow(history_track$wealth)
     N<-length(actors)
 # Layout
   l<-matrix(0,nrow=N,ncol=2)
@@ -32,16 +26,21 @@ coallitions[k,k2]<- if(actors[[k]]$commitment[k2]>=threshold) 1 else 0
 }}
 
 
+wealth<-rep(0,N)
+for(i in 1:N){
+	wealth[i]<-actors[[i]]$wealth
+}
+
+
 
 netw<-graph_from_adjacency_matrix(coallitions)
-wealth_all<-history_track$wealth[time_thre,]/max(history_track$wealth[time_thre,])
+wealth_all<-wealth/max(wealth)
 netw <-igraph::set_vertex_attr(netw, 'wealth', index = 1:N, wealth_all)
 
 
 
-a<-history_track$active$active[time_thre, fight_chosen]
-fight_chosen<-fight_chosen+3
-b<-history_track$active$active[time_thre, fight_chosen]
+a<-active[fight_chosen]
+b<-target[fight_chosen]
 if(!is.na(b)){
 	
 title<-paste0("Active actor: ",a,'. Target actor: ',b)

@@ -88,6 +88,33 @@ server <- function(input, output) {
                            }
  )
 	 	 
+	 	 
+	#############################
+	# Do a video
+	#############################
+
+ 	 
+ observe({  
+ 	input$mydata
+                
+
+  
+   output$test_plot <- renderPlot({
+   		# Period chosen cannot be greater than the maximum number of simulations.
+   		plottime <-input$mydata
+		plot_at_time<- (plottime%%input$time)+1
+	# Time starts at period 1
+	# plot_at_time<-if(plot_at_time>100) plot_at_time else 1
+	chosen_thre<-input$threshold
+	fight<-if(input$fight<3)input$fight else 3
+	fight<-if(input$fight>1)input$fight else 1	
+	plotg_alliance(history_track, chosen_thre, plot_at_time, 'Proportional to wealth',fight) })
+ })
+
+
+	#############################
+	# End: Do a video
+	#############################	 	 
 	 	
 	 			})
 		
@@ -100,17 +127,14 @@ ui <- fluidPage(htmlTemplate( "simulations.html",
 
 # #####
 # Start simulation
-startsimulations=actionButton(inputId ='simulation',label='Simulation', style="color:white;
-	background-color:#F19F4D;
-	border-radius: 8px;
-	height:28px;"),
+ 
 
 # #####
 # Basic Parameters
 # Choose number of actors
 size_chosen=tags$input(id='size',type="number", value=10, min=5, max=15),
 # Chose number of periods
-time_chosen=tags$input(id='time',type="number", value=10, min=5, max=500),
+time_chosen=tags$input(id='time',type="number", value=100, min=5, max=500),
 # Choose cost of war
 costwar_chosen=tags$input(id='cost',type="number", step=.05, value=.25, min=0, max=1),
 # #####
@@ -136,7 +160,10 @@ alliance_network2=plotOutput("allianceNetwealth"),
 # Plot wealth of alliances
 wealth_histrogram=plotOutput("histogram"),
 # Download Button
-downloadlink=downloadLink("downloadData", "Download Simulation")
+downloadlink=downloadLink("downloadData", "Download Simulation"),
+
+test_plot=plotOutput("test_plot")
+
 
 )
   )

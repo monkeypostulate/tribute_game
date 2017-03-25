@@ -23,7 +23,6 @@ source(paste0(folder_dir,"/plot_trends.R"))
 source(paste0(folder_dir,"/plot_alliance_net.R"))
 
 
-setting_simulate<-function(N, T_periods, cost){
 #####################################
 # Create Actors
 #####################################
@@ -35,38 +34,32 @@ for(i in 1:N){
 }
 
 
-growth<-runif(N,min=200,max=600)
 
 # #####################################################	 
 #
 # #####################################################	 
 
-history_track<-list()
-history_track$wealth<-matrix(0,nrow=T_periods,ncol=N)
-history_track$active<-list()
-history_track$active$active<-matrix(0,nrow=T_periods, ncol=6)
-history_track$actors<-list()
-
+ #history_wealth<-matrix(0,nrow=T_periods,ncol=N)
+   
 # #####################################################	 
 # Start Simulations
 # #####################################################	 
-withProgress(message = 'Simulation running', value = 0, min=0, 
-max=1, {
-for(time_s in 1:T_periods){
 
-if(time_s!=1){
-# Star of new Year
-for(i in 1:N){
-	actors[[i]]$wealth<-actors[[i]]$wealth+ growth[i] 
-#Track Wealth
-history_track$wealth[time_s,i]<-actors[[i]]$wealth
+  
+ 
+  for(s in 1:1009){
+  	 for(i in 1:N){
+	actors[[i]]$wealth<-actors[[i]]$wealth+20 
 }
+  	results<-update_actors(actors,1)
+  	actors<-results$actors
+  	active <-results$active
+  	target <-results$target
+  	
+ plotg_alliance2(actors,active,target,50,'Proportional to wealth',1,s)
+ print(s)
 }
-
-
-history_track$actors[[time_s]]<-actors
-
-
+update_actors<-function(actors, cost){
 # #####################################################	 
 # Choose active actors
 # #####################################################	 
@@ -77,30 +70,23 @@ active<-sample(1:N,3, replace=F)
 # #####################################################	 
 target<-rep(0,3)
 for(i in 1:3){
-	target[i]<-target_actor(active[i],actors) 
-}
- 	history_track$active$active[time_s,1:3]<-active 
-	history_track$active$active[time_s,4:6]<-target 
- 
+	target[i]<-target_actor(active[i],actors)
+ }
 
-for(k in 1:3){
+
 # Update actors
-if(!is.na(target[k])){
- 	actors<-update_process(active[k], target[k],actors, cost)
-}
-}
-
-percentage<-round(time_s/T_periods,1)
-incProgress(amount=percentage, detail = paste("Progress", percentage))
- 
-
+if(!is.na(target[i])){
+	actors<-update_process(active[i], target[i],actors, cost)
 }
 
 
-})
-# Output
-return(history_track)
+output<-list()
+output$actors<-actors
+output$active<-active
+output$target <-target
+return(output)
 }
+
 
 
 

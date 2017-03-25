@@ -33,19 +33,60 @@
 }	 
 	 
  
+	 .hidenparameter{
+	   display: none;
+}
+	 
+	 
+.buttons {
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #000;
+  font-size: 14px;
+  background: #D9D9D9;
+  padding: 8px 7px 7px 7px;
+  border: solid #F19D4D 2px;
+  text-decoration: none;
+}	 
+	 
+
+	 
+	 
+	.buttons:hover {
+    background-color: #F19D4D;
+    	transition: 0.7s all ease;
+        color: black; 
+        border: 2px solid #F19D4D;
+} 
+	 
+
+input[type=number]:focus {
+    background-color: lightblue;
+}	 
 	 
 	 
 	 
 	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
+.select_one select {
+    border-radius: 0;
+    background: transparent;
+    height: 34px;
+    padding: 5px;
+    border: 0;
+    font-size: 16px;
+    line-height: 1;
+    -webkit-appearance: none;
+    width: 268px;
+   }     
+   .select_one {
+    border: 1px solid #CCC;
+    overflow: hidden; 
+    height: 34px;
+    background: #FFF;
+    width: 240px;
+   }	 
 	 
 	 .social-slide {
 	background-image: url('social_pictures/twitter.png');

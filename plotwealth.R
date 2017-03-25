@@ -38,7 +38,7 @@ c1[,1]<-as.character(c1[,1])
 c2<-data.frame(c2)
 c2[,1]<-as.character(c2[,1])
 
-g1<-ggplot(data=c1, aes(x=id, y=wealth))+geom_bar(stat='identity', colour='black', fill=rgb(1,0,0))+
+g1<-ggplot(data=c1, aes(x=id, y=wealth))+geom_bar(stat='identity', colour='black', fill='#F19F4D')+
 ylim(0,max(c1[,'wealth'],c2[,'wealth'])+1)+ggtitle('Active Alliance')+xlab('Actors')+theme(   axis.text = element_text(size = 14),
     legend.key = element_rect(fill = "gray80"),
     legend.background = element_rect(fill = "white"),
@@ -48,7 +48,7 @@ ylim(0,max(c1[,'wealth'],c2[,'wealth'])+1)+ggtitle('Active Alliance')+xlab('Acto
     panel.background = element_rect(fill = "white")
 )
 
-g2<-ggplot(data=c2, aes(x=id, y=wealth))+geom_bar(stat='identity', colour='black', fill=rgb(0,0,1))+
+g2<-ggplot(data=c2, aes(x=id, y=wealth))+geom_bar(stat='identity', colour='black', fill='#4484CE')+
 ylim(0,max(c1[,'wealth'],c2[,'wealth'])+1)+ggtitle('Target Alliance')+xlab('Actors')+theme(   axis.text = element_text(size = 14),
     legend.key = element_rect(fill = "gray80"),
     legend.background = element_rect(fill = "white"),
